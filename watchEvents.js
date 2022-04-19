@@ -51,7 +51,7 @@ async function main() {
             type: "event",
         },
         tableName: "ItemListed",
-        sync_historical: false,
+        sync_historical: true,
     }
 
     let itemBoughtOptions = {
@@ -90,7 +90,7 @@ async function main() {
             type: "event",
         },
         tableName: "ItemBought",
-        sync_historical: false,
+        sync_historical: true,
     }
 
     let itemCanceledOptions = {
@@ -123,7 +123,7 @@ async function main() {
             type: "event",
         },
         tableName: "ItemCanceled",
-        sync_historical: false,
+        sync_historical: true,
     }
 
     const listedResponse = await Moralis.Cloud.run("watchContractEvent", itemListedOptions, {
