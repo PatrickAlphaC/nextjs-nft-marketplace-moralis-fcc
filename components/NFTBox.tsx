@@ -3,7 +3,7 @@ import { Card, Tooltip, Illustration, Modal, useNotification, Input, Button } fr
 import nftAbi from "../constants/BasicNft.json"
 import nftMarketplaceAbi from "../constants/NftMarketplace.json"
 
-import { useMoralisWeb3Api, useMoralis, useWeb3Contract } from "react-moralis"
+import { useMoralis, useWeb3Contract } from "react-moralis"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
@@ -38,12 +38,17 @@ const NFTBox: NextPage<NFTBoxProps> = ({
     nftMarketplaceAddress,
     seller,
 }: NFTBoxProps) => {
+    console.log(nftMarketplaceAddress)
     const { chainId, isWeb3Enabled, account } = useMoralis()
-    const Web3Api = useMoralisWeb3Api()
     const [imageURI, setImageURI] = useState<string | undefined>()
-
     const [tokenName, setTokenName] = useState<string | undefined>()
     const [tokenDescription, setTokenDescription] = useState<string | undefined>()
+    // State to handle display of 'create listing' or 'update listing' modal
+    const [showModal, setShowModal] = useState(false)
+    const hideModal = () => setShowModal(false)
+    const isListed = seller !== undefined
+    console.log("marketplace")
+    console.log(nftMarketplaceAddress)
 
     const dispatch = useNotification()
 
@@ -56,7 +61,7 @@ const NFTBox: NextPage<NFTBoxProps> = ({
         },
     })
 
-    const { runContractFunction: buyItem } = useWeb3Contract({
+    const { runContractFunction: buyItem, error: buyError } = useWeb3Contract({
         abi: nftMarketplaceAbi,
         contractAddress: nftMarketplaceAddress,
         functionName: "buyItem",
@@ -65,6 +70,8 @@ const NFTBox: NextPage<NFTBoxProps> = ({
             nftAddress: nftAddress,
             tokenId: tokenId,
         },
+        // This doesn't exist
+        // overrides: {},
     })
 
     async function updateUI() {
@@ -112,12 +119,19 @@ const NFTBox: NextPage<NFTBoxProps> = ({
     const isOwnedByUser = seller === account || seller === undefined
     const formattedSellerAddress = isOwnedByUser ? "you" : truncateStr(seller || "", 15)
 
-    const handleCardClick = () =>
-        isOwnedByUser
-            ? setShowModal(true)
-            : buyItem({
-                  onSuccess: () => handleBuyItemSuccess(),
-              })
+    const handleCardClick = async function () {
+        if (isOwnedByUser) {
+            setShowModal(true)
+        } else {
+            console.log(nftMarketplaceAddress)
+            await buyItem({
+                onSuccess: () => handleBuyItemSuccess(),
+                onError: (error) => {
+                    console.log(error)
+                },
+            })
+        }
+    }
 
     const handleBuyItemSuccess = () => {
         dispatch({
@@ -128,22 +142,11 @@ const NFTBox: NextPage<NFTBoxProps> = ({
         })
     }
 
-    // State to handle display of 'create listing' or 'update listing' modal
-    const [showModal, setShowModal] = useState(false)
-    const hideModal = () => setShowModal(false)
-    const isListed = seller !== undefined
-
     const tooltipContent = isListed
         ? isOwnedByUser
             ? "Update listing"
             : "Buy me"
         : "Create listing"
-
-    async function buy() {
-        await buyItem()
-        console.log(tokenId)
-        console.log(nftAddress)
-    }
 
     return (
         <div className="p-2">
