@@ -8,7 +8,7 @@ export interface UpdateListingModalProps {
     isVisible: boolean
     onClose: () => void
     nftMarketplaceAbi: object
-    nftMarketplaceAddress: string
+    marketplaceAddress: string
     nftAddress: string
     tokenId: string
     imageURI: string | undefined
@@ -19,7 +19,7 @@ export const UpdateListingModal = ({
     isVisible,
     onClose,
     nftMarketplaceAbi,
-    nftMarketplaceAddress,
+    marketplaceAddress,
     nftAddress,
     tokenId,
     imageURI,
@@ -51,7 +51,7 @@ export const UpdateListingModal = ({
 
     const { runContractFunction: cancelListing } = useWeb3Contract({
         abi: nftMarketplaceAbi,
-        contractAddress: nftMarketplaceAddress,
+        contractAddress: marketplaceAddress,
         functionName: "cancelListing",
         params: {
             nftAddress: nftAddress,
@@ -61,7 +61,7 @@ export const UpdateListingModal = ({
 
     const { runContractFunction: updateListing } = useWeb3Contract({
         abi: nftMarketplaceAbi,
-        contractAddress: nftMarketplaceAddress,
+        contractAddress: marketplaceAddress,
         functionName: "updateListing",
         params: {
             nftAddress: nftAddress,

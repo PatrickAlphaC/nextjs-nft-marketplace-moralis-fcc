@@ -1,5 +1,5 @@
 
-- [Full-Stack Local Quickstart](#full-stack-local-quickstart)
+- [Full-Stack Setup](#full-stack-setup)
   - [1. Git clone the contracts repo](#1-git-clone-the-contracts-repo)
   - [2. Start your node](#2-start-your-node)
   - [3. Connect your codebase to your moralis server](#3-connect-your-codebase-to-your-moralis-server)
@@ -12,8 +12,9 @@
     - [Or, if you want to do it manually](#or-if-you-want-to-do-it-manually)
   - [8. Mint and List your NFT](#8-mint-and-list-your-nft)
   - [9. Start your front end](#9-start-your-front-end)
+- [Minimal Quickstart](#minimal-quickstart)
 
-# Full-Stack Local Quickstart
+# Full-Stack Setup
 
 ## 1. Git clone the contracts repo
 
@@ -188,4 +189,57 @@ And you're about to have one more for your front end.
 yarn run dev
 ```
 
-And you'll have your front end, indexing service running, and blockchain running. 
+And you'll have your front end, indexing service running, and blockchain running.
+
+# Minimal Quickstart
+
+1. Clone the backend repo
+
+```
+git clone https://github.com/PatrickAlphaC/hardhat-nft-marketplace-fcc
+cd hardhat-nextjs-nft-marketplace-fcc
+yarn
+yarn hardhat node
+```
+Leave that terminal running^
+
+2. Clone the frontend
+
+```
+git clone https://github.com/PatrickAlphaC/nextjs-nft-marketplace-moralis-fcc
+cd nextjs-nft-marketplace-moralis-fcc
+yarn
+```
+
+Setup your `.env` with moralis info and update your `package.json` with moralis subdomain.
+
+3. Sync your hardhat node with moralis
+
+Update your `frpc.ini` file with what you see in the moralis UI.
+
+Leave this terminal running: 
+
+```
+yarn moralis:sync
+```
+
+4. Watch for events && Update cloud functions
+
+Run once:
+```
+yarn moralis:cloud
+```
+
+```
+node watchEvents.js
+```
+
+5. Emit an event
+
+Back in your hardhat project, run:
+
+```
+yarn hardhat run scripts/mint-and-list-item.js --network localhost
+```
+
+And you should see it updated in the database

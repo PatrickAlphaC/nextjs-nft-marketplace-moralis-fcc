@@ -9,7 +9,7 @@ export interface SellNFTModalProps {
     onClose: () => void
     nftAbi: object
     nftMarketplaceAbi: object
-    nftMarketplaceAddress: string
+    marketplaceAddress: string
     nftAddress: string
     tokenId: string
     imageURI: string | undefined
@@ -20,7 +20,7 @@ export const SellNFTModal = ({
     onClose,
     nftAbi,
     nftMarketplaceAbi,
-    nftMarketplaceAddress,
+    marketplaceAddress,
     nftAddress,
     tokenId,
     imageURI,
@@ -46,7 +46,7 @@ export const SellNFTModal = ({
 
         const options = {
             abi: nftMarketplaceAbi,
-            contractAddress: nftMarketplaceAddress,
+            contractAddress: marketplaceAddress,
             functionName: "listItem",
             params: {
                 nftAddress: nftAddress,
@@ -72,7 +72,7 @@ export const SellNFTModal = ({
             contractAddress: nftAddress,
             functionName: "approve",
             params: {
-                to: nftMarketplaceAddress,
+                to: marketplaceAddress,
                 tokenId: tokenId,
             },
         }

@@ -1,8 +1,10 @@
 const Moralis = require("moralis/node")
 require("dotenv").config()
 const contractAddresses = require("./constants/networkMapping.json")
-const HARDHAT_LOCAL_CHAIN_ID = "31337"
-const MORALIS_LOCAL_CHAIN_ID = "1337"
+
+let chainId = process.env.chainId || "31337"
+let moralisChainId = chainId == "31337" ? "1337" : chainId
+console.log(moralisChainId)
 
 /* Moralis init code */
 const serverUrl = process.env.NEXT_PUBLIC_MORALIS_SERVER_URL
@@ -11,12 +13,13 @@ const masterKey = process.env.masterKey
 
 async function main() {
     await Moralis.start({ serverUrl, appId, masterKey })
-    const contractAddress = contractAddresses[HARDHAT_LOCAL_CHAIN_ID]["NftMarketplace"][0]
+    const contractAddress = contractAddresses[chainId]["NftMarketplace"][0]
+    console.log(contractAddress)
 
     console.log(`Working with contract address: ${contractAddress}`)
 
     let itemListedOptions = {
-        chainId: MORALIS_LOCAL_CHAIN_ID,
+        chainId: moralisChainId,
         address: contractAddress,
         topic: "ItemListed(address,address,uint256,uint256)",
         abi: {
@@ -55,7 +58,7 @@ async function main() {
     }
 
     let itemBoughtOptions = {
-        chainId: MORALIS_LOCAL_CHAIN_ID,
+        chainId: moralisChainId,
         address: contractAddress,
         topic: "ItemBought(address,address,uint256,uint256)",
         abi: {
@@ -94,7 +97,7 @@ async function main() {
     }
 
     let itemCanceledOptions = {
-        chainId: MORALIS_LOCAL_CHAIN_ID,
+        chainId: moralisChainId,
         address: contractAddress,
         topic: "ItemCanceled(address,address,uint256)",
         abi: {

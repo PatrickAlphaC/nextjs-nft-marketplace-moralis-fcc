@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "moralis:sync": "moralis-admin-cli connect-local-devchain --chain hardhat --moralisSubdomain mnks13pc9scu.usemoralis.com --frpcPath ./frp/frpc",
-    "moralis:cloud": "moralis-admin-cli watch-cloud-folder  --moralisSubdomain mnks13pc9scu.usemoralis.com --autoSave 1 --moralisCloudfolder ./cloudFunctions",
-    "moralis:logs": "moralis-admin-cli get-logs --moralisSubdomain mnks13pc9scu.usemoralis.com",
+    "moralis:sync": "moralis-admin-cli connect-local-devchain --chain hardhat --moralisSubdomain ugsbecynnvnn.usemoralis.com --frpcPath ./frp/frpc",
+    "moralis:cloud": "moralis-admin-cli watch-cloud-folder  --moralisSubdomain ugsbecynnvnn.usemoralis.com --autoSave 1 --moralisCloudfolder ./cloudFunctions",
+    "moralis:logs": "moralis-admin-cli get-logs --moralisSubdomain ugsbecynnvnn.usemoralis.com",
     "moralis:watch": "node watchEvents.js"
   },
   "dependencies": {
