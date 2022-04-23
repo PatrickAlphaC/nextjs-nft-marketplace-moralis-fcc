@@ -12,7 +12,6 @@ import {
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { SellNFTModal } from "./SellNFTModal"
 import { UpdateListingModal } from "./UpdateListingModal"
 
 interface NFTBoxProps {
@@ -46,12 +45,13 @@ const NFTBox: NextPage<NFTBoxProps> = ({
     const { isWeb3Enabled, account } = useMoralis()
     const Web3Api = useMoralisWeb3Api()
     const [imageURI, setImageURI] = useState<string | undefined>()
+    const [tokenURI, setTokenURI] = useState<string | undefined>()
     const [tokenName, setTokenName] = useState<string | undefined>()
     const [tokenDescription, setTokenDescription] = useState<string | undefined>()
 
     const dispatch = useNotification()
 
-    const { runContractFunction: getTokenURI, data: tokenURI } = useWeb3Contract({
+    const { runContractFunction: getTokenURI } = useWeb3Contract({
         abi: nftAbi,
         contractAddress: nftAddress,
         functionName: "tokenURI",
@@ -72,6 +72,7 @@ const NFTBox: NextPage<NFTBoxProps> = ({
     })
 
     async function updateUI() {
+        const tokenURI = await getTokenURI()
         console.log(`TokenURI is: ${tokenURI}`)
         // We are cheating a bit here...
         if (tokenURI) {
@@ -87,10 +88,6 @@ const NFTBox: NextPage<NFTBoxProps> = ({
 
     useEffect(() => {
         updateUI()
-    }, [tokenURI])
-
-    useEffect(() => {
-        isWeb3Enabled && getTokenURI()
     }, [isWeb3Enabled])
 
     const isOwnedByUser = seller === account || seller === undefined
@@ -125,16 +122,6 @@ const NFTBox: NextPage<NFTBoxProps> = ({
 
     return (
         <div className="p-2">
-            <SellNFTModal
-                isVisible={showModal && !isListed}
-                imageURI={imageURI}
-                nftAbi={nftAbi}
-                nftMarketplaceAbi={nftMarketplaceAbi}
-                nftAddress={nftAddress}
-                tokenId={tokenId}
-                onClose={hideModal}
-                marketplaceAddress={marketplaceAddress}
-            />
             <UpdateListingModal
                 isVisible={showModal && isListed}
                 imageURI={imageURI}
@@ -162,7 +149,7 @@ const NFTBox: NextPage<NFTBoxProps> = ({
                                 />
                                 {price && (
                                     <div className="font-bold">
-                                        {ethers.utils.formatEther(price)} ETH
+                                        {ethers.utils.formatUnits(price, "ether")} ETH
                                     </div>
                                 )}
                             </div>

@@ -33,10 +33,11 @@ export const UpdateListingModal = ({
         dispatch({
             type: "success",
             message: "Listing updated successfully",
-            title: "Listing Updated",
+            title: "Listing Updated - please refresh",
             position: "topR",
         })
         onClose && onClose()
+        setPriceToUpdateListingWith("0")
     }
 
     const handleCancelListingSuccess = () => {
@@ -115,7 +116,7 @@ export const UpdateListingModal = ({
                         </div>
                     </div>
                     <Input
-                        label="Update listing price"
+                        label="Update listing price in L1 Currency (ETH)"
                         name="New listing price"
                         onChange={(event) => {
                             setPriceToUpdateListingWith(event.target.value)

@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "moralis:sync": "moralis-admin-cli connect-local-devchain --chain hardhat --moralisSubdomain ugsbecynnvnn.usemoralis.com --frpcPath ./frp/frpc",
-    "moralis:cloud": "moralis-admin-cli watch-cloud-folder  --moralisSubdomain ugsbecynnvnn.usemoralis.com --autoSave 1 --moralisCloudfolder ./cloudFunctions",
-    "moralis:logs": "moralis-admin-cli get-logs --moralisSubdomain ugsbecynnvnn.usemoralis.com",
-    "moralis:watch": "node watchEvents.js"
+    "moralis:sync": "moralis-admin-cli connect-local-devchain --chain hardhat --moralisSubdomain 3napwdtptytv.usemoralis.com --frpcPath ./frp/frpc",
+    "moralis:cloud": "moralis-admin-cli watch-cloud-folder  --moralisSubdomain 3napwdtptytv.usemoralis.com --autoSave 1 --moralisCloudfolder ./cloudFunctions",
+    "moralis:logs": "moralis-admin-cli get-logs --moralisSubdomain 3napwdtptytv.usemoralis.com",
+    "moralis:events": "node addEvents.js"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
