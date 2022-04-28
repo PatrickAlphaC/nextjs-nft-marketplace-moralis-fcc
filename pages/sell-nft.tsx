@@ -27,7 +27,7 @@ const SellNft: NextPage = () => {
     const { runContractFunction } = useWeb3Contract()
 
     const withDrawOptions = {
-        abi: nftAbi,
+        abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
         functionName: "withdrawProceeds",
         params: {},

@@ -6,6 +6,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 import Layout from "../components/Layout"
 import NetworkBanner from "../components/NetworkBanner"
 import { NotificationProvider } from "web3uikit"
+import Header from "../components/Header"
 
 const APP_ID = process.env.NEXT_PUBLIC_MORALIS_APP_ID
 const SERVER_URL = process.env.NEXT_PUBLIC_MORALIS_SERVER_URL
@@ -20,9 +21,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             <MoralisProvider appId={APP_ID!} serverUrl={SERVER_URL!} initializeOnMount={true}>
                 <NotificationProvider>
                     <NetworkBanner />
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
+                    <Header />
+                    <Component {...pageProps} />
                 </NotificationProvider>
             </MoralisProvider>
         </>

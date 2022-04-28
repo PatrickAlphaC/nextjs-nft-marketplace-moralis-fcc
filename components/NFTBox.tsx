@@ -1,14 +1,9 @@
 import type { NextPage } from "next"
-import { Card, Tooltip, Illustration, Modal, useNotification, Input, Button } from "web3uikit"
+import { Card, Tooltip, Illustration, useNotification } from "web3uikit"
 import nftAbi from "../constants/BasicNft.json"
 import nftMarketplaceAbi from "../constants/NftMarketplace.json"
 
-import {
-    useMoralisWeb3Api,
-    useMoralis,
-    useMoralisWeb3ApiCall,
-    useWeb3Contract,
-} from "react-moralis"
+import { useMoralisWeb3Api, useMoralis, useWeb3Contract } from "react-moralis"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
@@ -43,9 +38,7 @@ const NFTBox: NextPage<NFTBoxProps> = ({
     seller,
 }: NFTBoxProps) => {
     const { isWeb3Enabled, account } = useMoralis()
-    const Web3Api = useMoralisWeb3Api()
     const [imageURI, setImageURI] = useState<string | undefined>()
-    const [tokenURI, setTokenURI] = useState<string | undefined>()
     const [tokenName, setTokenName] = useState<string | undefined>()
     const [tokenDescription, setTokenDescription] = useState<string | undefined>()
 

@@ -1,7 +1,7 @@
 Moralis.Cloud.afterSave("ItemListed", async (request) => {
     const confirmed = request.object.get("confirmed")
     const logger = Moralis.Cloud.getLogger()
-
+    logger.info("Looking for confirmed TX...")
     if (confirmed) {
         logger.info("Found item!")
         const ActiveItem = Moralis.Object.extend("ActiveItem")
