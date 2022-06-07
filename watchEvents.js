@@ -8,7 +8,7 @@ console.log(moralisChainId)
 
 /* Moralis init code */
 const serverUrl = process.env.NEXT_PUBLIC_MORALIS_SERVER_URL
-const appId = process.env.NEXT_PUBLIC_MORALIS_APP_ID
+const appId = process.env.NEXT_PUBLIC_APP_ID
 const masterKey = process.env.masterKey
 
 async function main() {
