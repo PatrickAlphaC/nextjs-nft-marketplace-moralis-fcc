@@ -43,11 +43,12 @@ Sign up for a [free account here](https://moralis.io/).
 Once setup, update / create your `.env` file. You can use `.env.example` as a boilerplate. 
 
 ```
-NEXT_PUBLIC_MORALIS_APP_ID=XXXX
-NEXT_PUBLIC_MORALIS_SECRET=XXXX
-NEXT_PUBLIC_MORALIS_SERVER_URL=XXXX
+NEXT_PUBLIC_APP_ID=XXXX
+NEXT_PUBLIC_SERVER_URL=XXXX
 moralisApiKey=XXX
 moralisSubdomain=XXX
+masterKey=XXX
+chainId=31337
 ```
 
 With the values from your account. 
