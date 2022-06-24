@@ -14,8 +14,9 @@ Moralis.Cloud.afterSave("ItemListed", async (request) => {
         query.equalTo("seller", request.object.get("seller"))
         logger.info(`Marketplace | Query: ${query}`)
         const alreadyListedItem = await query.first()
+        console.log(`alreadyListedItem ${JSON.stringify(alreadyListedItem)}`);
         if (alreadyListedItem) {
-            logger.info(`Deleting ${request.object.get("objectId")}`)
+            logger.info(`Deleting ${alreadyListedItem.id}`)
             await alreadyListedItem.destroy()
             logger.info(
                 `Deleted item with tokenId ${request.object.get(
@@ -55,9 +56,9 @@ Moralis.Cloud.afterSave("ItemCanceled", async (request) => {
         query.equalTo("tokenId", request.object.get("tokenId"))
         logger.info(`Marketplace | Query: ${query}`)
         const canceledItem = await query.first()
-        logger.info(`Marketplace | CanceledItem: ${canceledItem}`)
+        logger.info(`Marketplace | CanceledItem: ${JSON.stringify(canceledItem)}`)
         if (canceledItem) {
-            logger.info(`Deleting ${request.object.get("objectId")}`)
+            logger.info(`Deleting ${canceledItem.id}`)
             await canceledItem.destroy()
             logger.info(
                 `Deleted item with tokenId ${request.object.get(
@@ -85,11 +86,11 @@ Moralis.Cloud.afterSave("ItemBought", async (request) => {
         query.equalTo("nftAddress", request.object.get("nftAddress"))
         query.equalTo("tokenId", request.object.get("tokenId"))
         logger.info(`Marketplace | Query: ${query}`)
-        const canceledItem = await query.first()
-        logger.info(`Marketplace | CanceledItem: ${canceledItem}`)
-        if (canceledItem) {
-            logger.info(`Deleting ${request.object.get("objectId")}`)
-            await canceledItem.destroy()
+        const boughtItem = await query.first()
+        logger.info(`Marketplace | boughtItem: ${JSON.stringify(boughtItem)}`)
+        if (boughtItem) {
+            logger.info(`Deleting boughtItem ${boughtItem.id}`)
+            await boughtItem.destroy()
             logger.info(
                 `Deleted item with tokenId ${request.object.get(
                     "tokenId"
