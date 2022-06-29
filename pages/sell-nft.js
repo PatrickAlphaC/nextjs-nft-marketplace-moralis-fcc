@@ -98,7 +98,9 @@ export default function Home() {
     }
 
     useEffect(() => {
-        setupUI()
+        if(isWeb3Enabled){
+            setupUI()
+        }
     }, [proceeds, account, isWeb3Enabled, chainId])
 
     return (
