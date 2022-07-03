@@ -3,7 +3,8 @@ require("dotenv").config()
 const contractAddresses = require("./constants/networkMapping.json")
 let chainId = process.env.chainId || 31337
 let moralisChainId = chainId == "31337" ? "1337" : chainId
-const contractAddress = contractAddresses[chainId]["NftMarketplace"][0]
+const contractAddressArray = contractAddresses[chainId]["NftMarketplace"]
+const contractAddress = contractAddressArray[contractAddressArray.length - 1]
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL
 const appId = process.env.NEXT_PUBLIC_APP_ID
