@@ -26,16 +26,14 @@ export default function Home() {
                             const { price, nftAddress, tokenId, marketplaceAddress, seller } =
                                 nft.attributes
                             return (
-                                <div>
-                                    <NFTBox
-                                        price={price}
-                                        nftAddress={nftAddress}
-                                        tokenId={tokenId}
-                                        marketplaceAddress={marketplaceAddress}
-                                        seller={seller}
-                                        key={`${nftAddress}${tokenId}`}
-                                    />
-                                </div>
+                                <NFTBox
+                                    price={price}
+                                    nftAddress={nftAddress}
+                                    tokenId={tokenId}
+                                    marketplaceAddress={marketplaceAddress}
+                                    seller={seller}
+                                    key={`${nftAddress}${tokenId}`}
+                                />
                             )
                         })
                     )
