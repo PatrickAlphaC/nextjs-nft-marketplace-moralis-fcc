@@ -97,7 +97,7 @@ Anytime you reset your hardhat node, you'll need to press the `RESET LOCAL CHAIN
 
 In a separate terminal (you'll have a few up throughout these steps)
 
-Run `yarn moralis:cloud` in one terminal, and run `yarm moralis:logs` in another. If you don't have `moralis-admin-cli` installed already, install it globally with `yarn global add moralis-admin-cli`.
+Run `yarn moralis:cloud` in one terminal, and run `yarn moralis:logs` in another. If you don't have `moralis-admin-cli` installed already, install it globally with `yarn global add moralis-admin-cli`.
 
 > Note: You can stop these after running them once if your server is at max CPU capactity. 
 
