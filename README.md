@@ -1,3 +1,8 @@
+<br/>
+<p align="center">
+<img src="./public/hero.png" width="500" alt="Hardhat NextJS Marketplace">
+</a>
+<br/>
 
 - [Full-Stack Setup](#full-stack-setup)
   - [1. Git clone the contracts repo](#1-git-clone-the-contracts-repo)
