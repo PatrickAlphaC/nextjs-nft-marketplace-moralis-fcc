@@ -25,6 +25,9 @@ export default function UpdateListingModal({
         })
         onClose && onClose()
         setPriceToUpdateListingWith("0")
+        setTimeout(() => {
+            location.reload()
+        }, 1000)
     }
 
     const { runContractFunction: updateListing } = useWeb3Contract({

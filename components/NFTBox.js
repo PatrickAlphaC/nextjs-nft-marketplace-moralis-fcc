@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Card, useNotification } from "web3uikit"
 import { ethers } from "ethers"
 import UpdateListingModal from "./UpdateListingModal"
+import { useRouter } from "next/router"
 
 const truncateStr = (fullStr, strLen) => {
     if (fullStr.length <= strLen) return fullStr
@@ -23,6 +24,7 @@ const truncateStr = (fullStr, strLen) => {
 }
 
 export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress, seller }) {
+    const Router = useRouter()
     const { isWeb3Enabled, account } = useMoralis()
     const [imageURI, setImageURI] = useState("")
     const [tokenName, setTokenName] = useState("")
@@ -58,12 +60,19 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
         if (tokenURI) {
             // IPFS Gateway: A server that will return IPFS files from a "normal" URL.
             const requestURL = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-            const tokenURIResponse = await (await fetch(requestURL)).json()
-            const imageURI = tokenURIResponse.image
-            const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-            setImageURI(imageURIURL)
-            setTokenName(tokenURIResponse.name)
-            setTokenDescription(tokenURIResponse.description)
+            console.log("requestURL ", requestURL)
+            let tokenURIResponse
+            try {
+                tokenURIResponse = await (await fetch(requestURL)).json()
+                console.log("tokenURIResponse ", tokenURIResponse)
+                const imageURI = tokenURIResponse.image
+                let imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
+                setImageURI(imageURIURL)
+                setTokenName(tokenURIResponse.name)
+                setTokenDescription(tokenURIResponse.description)
+            } catch (error) {
+                console.log("err ", error)
+            }
             // We could render the Image on our sever, and just call our sever.
             // For testnets & mainnet -> use moralis server hooks
             // Have the world adopt IPFS
@@ -99,10 +108,15 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
             title: "Item Bought",
             position: "topR",
         })
+        setTimeout(() => {
+            window.location = "http://localhost:3000/bought-nfts"
+        }, 1000)
     }
 
+    const pathname = Router.pathname
+    console.log("pathname ", pathname)
     return (
-        <div>
+        <div className="ml-4">
             <div>
                 {imageURI ? (
                     <div>
@@ -114,12 +128,12 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
                             onClose={hideModal}
                         />
                         <Card
-                            title={tokenName}
+                            title={tokenName?.toUpperCase()}
                             description={tokenDescription}
-                            onClick={handleCardClick}
+                            onClick={pathname == "/bought-nfts" ? false : handleCardClick}
                         >
                             <div className="p-2">
-                                <div className="flex flex-col items-end gap-2">
+                                <div className="flex flex-col items-center gap-2">
                                     <div>#{tokenId}</div>
                                     <div className="italic text-sm">
                                         Owned by {formattedSellerAddress}
@@ -129,6 +143,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
                                         src={imageURI}
                                         height="200"
                                         width="200"
+                                        alt="Reload it !"
                                     />
                                     <div className="font-bold">
                                         {ethers.utils.formatUnits(price, "ether")} ETH
