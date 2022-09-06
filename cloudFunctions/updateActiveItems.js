@@ -14,7 +14,7 @@ Moralis.Cloud.afterSave("ItemListed", async (request) => {
         query.equalTo("seller", request.object.get("seller"))
         logger.info(`Marketplace | Query: ${query}`)
         const alreadyListedItem = await query.first()
-        console.log(`alreadyListedItem ${JSON.stringify(alreadyListedItem)}`);
+        console.log(`alreadyListedItem ${JSON.stringify(alreadyListedItem)}`)
         if (alreadyListedItem) {
             logger.info(`Deleting ${alreadyListedItem.id}`)
             await alreadyListedItem.destroy()
@@ -46,9 +46,9 @@ Moralis.Cloud.afterSave("ItemListed", async (request) => {
 
 Moralis.Cloud.afterSave("ItemCanceled", async (request) => {
     const confirmed = request.object.get("confirmed")
+    const logger = Moralis.Cloud.getLogger()
     logger.info(`Marketplace | Object: ${request.object}`)
     if (confirmed) {
-        const logger = Moralis.Cloud.getLogger()
         const ActiveItem = Moralis.Object.extend("ActiveItem")
         const query = new Moralis.Query(ActiveItem)
         query.equalTo("marketplaceAddress", request.object.get("address"))
@@ -77,9 +77,9 @@ Moralis.Cloud.afterSave("ItemCanceled", async (request) => {
 
 Moralis.Cloud.afterSave("ItemBought", async (request) => {
     const confirmed = request.object.get("confirmed")
+    const logger = Moralis.Cloud.getLogger()
     logger.info(`Marketplace | Object: ${request.object}`)
     if (confirmed) {
-        const logger = Moralis.Cloud.getLogger()
         const ActiveItem = Moralis.Object.extend("ActiveItem")
         const query = new Moralis.Query(ActiveItem)
         query.equalTo("marketplaceAddress", request.object.get("address"))
