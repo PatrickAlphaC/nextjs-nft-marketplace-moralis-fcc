@@ -1,5 +1,5 @@
 import "../styles/globals.css"
-import { MoralisProvider } from "react-moralis"
+import { MoralisProvider, useMoralis } from "react-moralis"
 import Header from "../components/Header"
 import Head from "next/head"
 import { NotificationProvider } from "web3uikit"
