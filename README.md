@@ -1,3 +1,7 @@
+> ![IMPORTANT]
+> A lot of the codebase here no longer works due to Moralis closing down their backend servers.
+> We are building a new full-stack course on [Cyfrin Updraft](https://updraft.cyfrin.io/) this year, stay tuned! 
+
 
 - [Full-Stack Setup](#full-stack-setup)
   - [1. Git clone the contracts repo](#1-git-clone-the-contracts-repo)
